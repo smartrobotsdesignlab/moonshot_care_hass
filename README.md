@@ -27,10 +27,10 @@ Requirements: A PC with Ubuntu running Python 3.12. If you have an older Ubuntu 
 	 WantedBy=multi-user.target
 
 	 ```
-   - Enable the service with
-     - sudo systemctl daemon-reload
-     - sudo systemctl enable home-assistant.service
-     - sudo systemctl start home-assistant.service
+     - Enable the service with
+       - sudo systemctl daemon-reload
+       - sudo systemctl enable home-assistant.service
+       - sudo systemctl start home-assistant.service
 2. Open Home Assistant on your browser. Click on "Create my smart home" and set up the required information. Don't forget your credentials.
 3. In Home Assistant, go to Settings, then click on Devices and Services, then click on the tab "Helpers" and click on "Add helper". The button is the most basic helper, which has a toggle status (on, off). 
    - When the helper is clicked, its state changes. The ROS program provided in this repository will monitor the changes on our Helpers using the Home Assistant API and then based on the name of the helper and type of the event, we'll execute Service calls in ROS.
