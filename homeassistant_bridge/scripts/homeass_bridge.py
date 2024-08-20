@@ -14,9 +14,16 @@ import signal
 my_id=1
 only_once = False
 
+# Configuration variables
+SERVICE_NAME = ""          # Input service name here (e.g., reset)
+SERVICE_TYPE = Empty       # Service type is important too, don't forget to change and import if necessary
+ACCESS_TOKEN = ""          # Input access token here
+HASS_ENTITY_ID = ""        # Input entity_id here
+HASS_ADDRESS = "127.0.0.1" # Input ip address or domain name of Home-assistant instance
+
 class ServiceCaller():
     def __init__(self):
-        self.service_client = rospy.ServiceProxy('SERVICE_NAME (e.g., reset)', Empty) #Service type is important too, don't forget to change
+        self.service_client = rospy.ServiceProxy(SERVICE_NAME, SERVICE_TYPE)
 
     def call_sample_service(self):
         #Executing a service call. 
@@ -35,7 +42,7 @@ def on_message(ws, message):
     print("mm", message)
     data = json.loads(message)
     if data['type'] == 'auth_required':
-        response = json.dumps({'type': 'auth', 'access_token': 'ACCESS_TOKEN'})
+        response = json.dumps({'type': 'auth', 'access_token': ACCESS_TOKEN})
         ws.send(response)
     elif data['type'] == 'auth_ok':
         #auth successful
@@ -45,7 +52,7 @@ def on_message(ws, message):
             'type': 'subscribe_trigger',
             'trigger': {
                 'platform': 'state',
-                'entity_id': 'HASS_ENTITY_ID (e.g., input_button.start_service)',
+                'entity_id': HASS_ENTITY_ID,
             }
         })
         #print(response)
@@ -54,7 +61,7 @@ def on_message(ws, message):
         pass
         #subscribe to other triggers if needed :) 
     elif data['type'] == 'event':
-        if data['event']['variables']['trigger']['entity_id'] == 'HASS_ENTITY_ID (e.g.,input_button.start_service) ':
+        if data['event']['variables']['trigger']['entity_id'] == HASS_ENTITY_ID:
             rospy.loginfo("Calling Service")
             service_caller.call_sample_service()
 
@@ -64,7 +71,7 @@ def on_close(ws):
 
 def main(args=None):
     
-    ws = websocket.WebSocketApp("ws://HASS_ADDRESS:8123/api/websocket", on_message=on_message, on_close=on_close)
+    ws = websocket.WebSocketApp("ws://" + HASS_ADDRESS + ":8123/api/websocket", on_message=on_message, on_close=on_close)
     wst = threading.Thread(target=ws.run_forever)
     wst.daemon = True
     wst.start()
