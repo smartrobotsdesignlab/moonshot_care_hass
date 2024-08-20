@@ -16,16 +16,16 @@ only_once = False
 
 class ServiceCaller():
     def __init__(self):
-        self.request_water_client = rospy.ServiceProxy('reset', Empty)
+        self.service_client = rospy.ServiceProxy('SERVICE_NAME (e.g., reset)', Empty) #Service type is important too, don't forget to change
 
-    def call_request_water(self):
-        #rospy.wait_for_service('Request_Water')
+    def call_sample_service(self):
+        #Executing a service call. 
         try:
             request = Empty._request_class()
-            response = self.request_water_client(request)
-            rospy.loginfo('Request_Water service called successfully')
+            response = self.service_client(request)
+            rospy.loginfo('Sample service called successfully')
         except rospy.ServiceException as e:
-            rospy.loginfo('Failed to call Request_Water service')
+            rospy.loginfo('Failed to call Sample service')
         return
 
 def on_message(ws, message):
@@ -35,7 +35,7 @@ def on_message(ws, message):
     print("mm", message)
     data = json.loads(message)
     if data['type'] == 'auth_required':
-        response = json.dumps({'type': 'auth', 'access_token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiIwYjc3YjkxZTg1YTk0ODRlOWJiMmI1ZDYyMGZlMWM1NyIsImlhdCI6MTcyMzEwMzc3MiwiZXhwIjoyMDM4NDYzNzcyfQ.SIDN0LdshqDTSynvuP1qmJLdP9NEr9yEhP5TUyiEJ1A'})
+        response = json.dumps({'type': 'auth', 'access_token': 'ACCESS_TOKEN'})
         ws.send(response)
     elif data['type'] == 'auth_ok':
         #auth successful
@@ -45,28 +45,18 @@ def on_message(ws, message):
             'type': 'subscribe_trigger',
             'trigger': {
                 'platform': 'state',
-                'entity_id': 'input_button.start_service',
+                'entity_id': 'HASS_ENTITY_ID (e.g., input_button.start_service)',
             }
         })
         #print(response)
         ws.send(response)
     elif data['type'] == 'result':
-        if not only_once:
-            response = json.dumps({
-                'id': my_id,
-                'type': 'subscribe_trigger',
-                'trigger': {
-                    'platform': 'state',
-                    'entity_id': 'input_button.whill',
-                    }
-                })
-            #print(response)
-            ws.send(response)
-        only_once = True
+        pass
+        #subscribe to other triggers if needed :) 
     elif data['type'] == 'event':
-        if data['event']['variables']['trigger']['entity_id'] == 'input_button.start_service':
-            rospy.loginfo("Turtlebot")
-            service_caller.call_request_water()
+        if data['event']['variables']['trigger']['entity_id'] == 'HASS_ENTITY_ID (e.g.,input_button.start_service) ':
+            rospy.loginfo("Calling Service")
+            service_caller.call_sample_service()
 
 
 def on_close(ws):
@@ -74,7 +64,7 @@ def on_close(ws):
 
 def main(args=None):
     
-    ws = websocket.WebSocketApp("ws://faye.livinglab.lan:8123/api/websocket", on_message=on_message, on_close=on_close)
+    ws = websocket.WebSocketApp("ws://HASS_ADDRESS:8123/api/websocket", on_message=on_message, on_close=on_close)
     wst = threading.Thread(target=ws.run_forever)
     wst.daemon = True
     wst.start()
