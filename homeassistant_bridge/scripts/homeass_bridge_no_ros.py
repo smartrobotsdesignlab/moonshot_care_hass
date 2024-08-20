@@ -13,8 +13,9 @@ my_id=1
 only_once = False
 
 # Configuration variables
-SERVICE_NAME = ""          # Input service name here (e.g., reset)
-SERVICE_TYPE = Empty       # Service type is important too, don't forget to change and import if necessary
+ACCESS_TOKEN = ""          # Input access token here
+HASS_ENTITY_ID = ""        # Input entity_id here
+HASS_ADDRESS = "127.0.0.1" # Input ip address or domain name of Home-assistant instance
 
 def trigger_function():
     # Add your code here
