@@ -11,22 +11,22 @@ Requirements: A PC with Ubuntu running Python 3.12. If you have an older Ubuntu 
      - Test that everything is working by running the command `hass` as the user `homeassistant` at the end of the installation and confirm that you can see the home assistant manager from your browser (URL is http://homeassistant.local:8123, http://localhost:8123). Then you can stop the running `hass` instance. 
      - Use systemd to launch Home Assistant on boot
      - To achieve this, Save the following unit file as: `/etc/systemd/system/home-assistant.service`
-```
-[Unit]
-Description=Home Assistant
-After=network-online.target
+	 ```
+	 [Unit]
+	 Description=Home Assistant
+	 After=network-online.target
 
-[Service]
-Type=simple 
-User=homeassistant
-WorkingDirectory=/home/homeassistant/.homeassistant
-ExecStart=/srv/homeassistant/bin/hass -c "/home/homeassistant/.homeassistant"
-RestartForceExitStatus=100
+	 [Service]
+	 Type=simple 
+	 User=homeassistant
+	 WorkingDirectory=/home/homeassistant/.homeassistant
+	 ExecStart=/srv/homeassistant/bin/hass -c "/home/homeassistant/.homeassistant"
+	 RestartForceExitStatus=100
 
-[Install]
-WantedBy=multi-user.target
+	 [Install]
+	 WantedBy=multi-user.target
 
-```
+	 ```
    - Enable the service with
      - sudo systemctl daemon-reload
      - sudo systemctl enable home-assistant.service
