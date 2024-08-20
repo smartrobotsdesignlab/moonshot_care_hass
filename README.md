@@ -49,12 +49,12 @@ Requirements: A PC with Ubuntu and a ROS 1 installation.
 - Clone this repository on your ROS workspace.
 - Change the permissions of the script in the scripts folder using `chmod +x homeass_bridge.py`
 - You need to modify certain elements of the Script to connect the Home Assistant helper and the Service in ROS.
-  -  Replace the ACCESS_TOKEN on line 38 with the access token generated in the previous step.
-  -  Adjust the name (and Service Type) of the ROS Service that will be called when the Helper event is registered on line 19. If you have more than one service, make sure to add them all.
-  -  Update the Home Assistant Entity IDs for both lines 48 and 57 to your entity's ID. Line 48 subscribes to events of the specified Entity ID, and line 57 compares the Entity ID when an event is received and matches it with the specified one.
-  -  Change the address of the Home Assistant server it will connect to on line 67.
+  -  Replace the ACCESS_TOKEN on line 20 with the access token generated in the previous step.
+  -  Adjust the name (and Service Type) of the ROS Service that will be called when the Helper event is registered on line 18 & 19. If you have more than one service, make sure to add them all.
+  -  Update the Home Assistant Entity IDs on line 21 to your entity's ID. Line 55 subscribes to events of the specified Entity ID, and line 64 compares the Entity ID when an event is received and matches it with the specified one.
+  -  Change the address of the Home Assistant server it will connect to on line 22.
 - Compile your ROS workspace. Don't forget to source the `devel/setup.bash` file
-- Run the node using rosrun `homeassistant_bridge homeass_bridge.py`
+- Run the node using `rosrun homeassistant_bridge homeass_bridge.py`
 - Test that when the button is pressed in your Home Assistant overview, the service is executed (or the program tries to execute it). 
 
 ### Step 4: Connect to Voice Assistants
