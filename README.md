@@ -54,7 +54,7 @@ Requirements: A PC with Ubuntu and a ROS 1 installation.
   -  Update the Home Assistant Entity IDs for both lines 48 and 57 to your entity's ID. Line 48 subscribes to events of the specified Entity ID, and line 57 compares the Entity ID when an event is received and matches it with the specified one.
   -  Change the address of the Home Assistant server it will connect to on line 67.
 - Compile your ROS workspace. Don't forget to source the `devel/setup.bash` file
-- Run the node using rosrun homeassistant_bridge homeass_bridge.py
+- Run the node using rosrun `homeassistant_bridge homeass_bridge.py`
 - Test that when the button is pressed in your Home Assistant overview, the service is executed (or the program tries to execute it). 
 
 ### Step 4: Connect to Voice Assistants
