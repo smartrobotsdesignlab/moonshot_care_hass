@@ -2,7 +2,7 @@
 
 This repository includes the basic instructions to setup a Home Assistant based CARE integration for ROS and non-ROS based devices. The architecture of the system can be seen in the image below: 
 
-![System Architecture](https://e.pcloud.link/publink/show?code=XZT7kPZyOJRz380txyH8xqmmU4haVQGnXqk)
+![System Architecture](https://imgur.com/tHXMZmp)
 
 Requirements: A PC with Ubuntu and a ROS 1 installation. 
 
