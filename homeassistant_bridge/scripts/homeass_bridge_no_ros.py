@@ -13,8 +13,8 @@ my_id=1
 only_once = False
 
 # Configuration variables
-ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjMDZkMjdmNGI1YzU0OTdhODE2M2EyNmUwY2U3MDA1ZiIsImlhdCI6MTcyNDE0NDg2NCwiZXhwIjoyMDM5NTA0ODY0fQ.40_cP-crVxDliGX4youdX14QVrE4OkeN8-xT8lw6EF8"          # Input access token here
-HASS_ENTITY_ID = "input_button.turtlebot"        # Input entity_id here
+ACCESS_TOKEN = ""          # Input access token here
+HASS_ENTITY_ID = ""        # Input entity_id here
 HASS_ADDRESS = "127.0.0.1" # Input ip address or domain name of Home-assistant instance
 
 def trigger_function():
