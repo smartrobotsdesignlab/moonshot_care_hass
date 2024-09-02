@@ -15,15 +15,15 @@ my_id=1
 only_once = False
 
 # Configuration variables
-SERVICE_NAME = ""          # Input service name here (e.g., reset)
-SERVICE_TYPE = Empty       # Service type is important too, don't forget to change and import if necessary
+ROS_SERVICE_NAME = ""          # Input service name here (e.g., reset)
+ROS_SERVICE_TYPE = Empty       # Service type is important too, don't forget to change and import if necessary
 ACCESS_TOKEN = ""          # Input access token here
 HASS_ENTITY_ID = ""        # Input entity_id here
 HASS_ADDRESS = "127.0.0.1" # Input ip address or domain name of Home-assistant instance
 
 class ServiceCaller():
     def __init__(self):
-        self.service_client = rospy.ServiceProxy(SERVICE_NAME, SERVICE_TYPE)
+        self.service_client = rospy.ServiceProxy(ROS_SERVICE_NAME, ROS_SERVICE_TYPE)
 
     def call_sample_service(self):
         #Executing a service call. 
